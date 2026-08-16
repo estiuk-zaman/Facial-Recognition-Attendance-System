@@ -13,7 +13,7 @@ names = np.load('names.npy', allow_pickle=True).item()
 
 cap = cv2.VideoCapture(0)
 
-# --- DAY 6: মেমোরি বক্স তৈরি করা ---
+
 marked_names = set() 
 print("System is Ready. Looking for faces...")
 if not os.path.isfile('Attendance.csv'):
@@ -50,8 +50,8 @@ while True:
                 name = names.get(id_, "Unknown")
                 color = (0, 255, 0) 
                 
-                # --- DAY 6: DUPLICATION FIX LOGIC ---
-                # যদি নামটা "Unknown" না হয় এবং মেমোরি বক্সে না থাকে
+                
+                
                 if name != "Unknown" and name not in marked_names:
                     now = datetime.now()
                     time_str = now.strftime("%H:%M:%S")
@@ -61,11 +61,10 @@ while True:
                         writer = csv.writer(f)
                         writer.writerow([name, time_str, date_str])
                     
-                    # নামটা মেমোরি বক্সে সেভ করে রাখলাম যাতে আজ আর এন্ট্রি না হয়
+                    
                     marked_names.add(name)
                     print(f"Attendance recorded for {name} at {time_str}")
-                # ------------------------------------
-
+                
             else:
                 name = "Unknown"
                 color = (0, 0, 255) 

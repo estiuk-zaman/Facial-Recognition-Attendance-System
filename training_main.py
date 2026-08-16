@@ -5,7 +5,7 @@ import os
 
 dataset_path = 'dataset'
 
-recognizer = cv2.face.LBPHFaceRecognizer_create()
+recognizer = cv2.face.LBPHFaceRecognizer_create(radius=1, neighbors=8, grid_x=16, grid_y=16)
 
 faces = []
 ids = []

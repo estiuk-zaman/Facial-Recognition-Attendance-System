@@ -3,7 +3,7 @@ import numpy as np
 
 face_detector = cv2.FaceDetectorYN.create("face_detection_yunet.onnx", "", (320, 320), 0.6, 0.3, 5000)
 
-recognizer = cv2.face.LBPHFaceRecognizer_create()
+recognizer = cv2.face.LBPHFaceRecognizer_create(radius=1, neighbors=8, grid_x=16, grid_y=16)
 recognizer.read('trainer.yml')
 
 names = np.load('names.npy', allow_pickle=True).item() 

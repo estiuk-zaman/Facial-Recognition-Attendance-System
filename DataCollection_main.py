@@ -2,13 +2,13 @@ import cv2
 import numpy as np
 import os
 
-# Directory setup for automated saving
+
 user_name = input("Enter your name (e.g., Estiuk): ")
 save_path = f"dataset/{user_name}"
 os.makedirs(save_path, exist_ok=True)
 print(f"Data will be saved in: {save_path}")
 
-# Load ONNX model
+
 model_path = "face_detection_yunet.onnx"
 face_detector = cv2.FaceDetectorYN.create(
     model=model_path,
@@ -20,7 +20,7 @@ face_detector = cv2.FaceDetectorYN.create(
 )
 
 cap = cv2.VideoCapture(0)
-count = 0  # Image save counter
+count = 0 
 
 while True:
     ret, frame = cap.read()
@@ -36,19 +36,19 @@ while True:
             box = face[0:4].astype(int)
             x, y, w_box, h_box = box
             
-            # Safety boundary check to prevent array index out of bounds
+            
             if x < 0 or y < 0 or x + w_box > w or y + h_box > h:
                 continue
 
-            # Array Slicing: Crop the facial region
+           
             face_crop = frame[y:y+h_box, x:x+w_box]
             
             if face_crop.size != 0:
-                # Convert to grayscale and normalize size for LBPH training
+                
                 gray_face = cv2.cvtColor(face_crop, cv2.COLOR_BGR2GRAY)
                 gray_face = cv2.resize(gray_face, (200, 200))
 
-                # Save image to disk
+                
                 count += 1
                 file_name = f"{save_path}/{count}.jpg"
                 cv2.imwrite(file_name, gray_face)
@@ -58,7 +58,7 @@ while True:
 
     cv2.imshow('Day 3 - Data Collection', frame)
     
-    # Auto-terminate after 100 samples
+    
     if cv2.waitKey(1) & 0xFF == ord('q') or count >= 100:
         break
 

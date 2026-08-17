@@ -40,7 +40,7 @@ while True:
             id_, distance = recognizer.predict(gray_face)
             
             
-            if distance < 80:  
+            if distance < 100:  
                 name = names.get(id_, "Unknown")
                 color = (0, 255, 0) 
             else:
